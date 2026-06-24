@@ -71,3 +71,20 @@ export async function signup(formData: FormData) {
   // Redirect to the home page on successful signup
   redirect("/");
 }
+
+/**
+ * Sign out action: ends the current user's session.
+ * Clears the Supabase auth cookies and sends the user back to the login page.
+ */
+export async function signOut() {
+  const supabase = await createClient();
+
+  // Clear the session server-side (removes the auth cookies)
+  await supabase.auth.signOut();
+
+  // Revalidate the layout so the app re-renders as logged out
+  revalidatePath("/", "layout");
+
+  // Send the user to the login page
+  redirect("/login");
+}
