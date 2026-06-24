@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #05060f;
+  --foreground: #e8eaf2;
 }
 
 @theme inline {
@@ -12,15 +12,53 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+body {
+  min-height: 100vh;
+  color: var(--foreground);
+  /* Deep cosmic gradient: a soft glow up top fading into near-black space. */
+  background:
+    radial-gradient(
+      1200px 600px at 50% -10%,
+      rgba(16, 51, 84, 0.55),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 500px at 85% 8%,
+      rgba(16, 84, 64, 0.22),
+      transparent 55%
+    ),
+    linear-gradient(180deg, #070912 0%, #05060f 100%);
+  background-attachment: fixed;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+/* Twinkle animation for the starfield. Duration/delay are set per-star inline. */
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.9;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.twinkle {
+  animation-name: twinkle;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+/* Wide-spaced uppercase heading treatment to match the cosmic theme. */
+.tracking-cosmic {
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+/* Respect users who prefer less motion: hold the stars steady. */
+@media (prefers-reduced-motion: reduce) {
+  .twinkle {
+    animation: none;
+    opacity: 0.6;
+  }
 }

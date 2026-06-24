@@ -8,15 +8,15 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   const { message } = await searchParams;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 flex items-center justify-center px-4">
-      {/* Background accent elements for astronomy theme */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500 rounded-full mix-blend-screen filter blur-3xl opacity-20 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500 rounded-full mix-blend-screen filter blur-3xl opacity-20 pointer-events-none" />
+    <div className="min-h-screen flex items-center justify-center px-4">
+      {/* Soft colour accents over the global starfield background */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500 rounded-full mix-blend-screen filter blur-3xl opacity-15 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500 rounded-full mix-blend-screen filter blur-3xl opacity-15 pointer-events-none" />
 
       <div className="relative w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">
+          <h1 className="text-2xl font-bold text-white mb-3 tracking-cosmic">
             Satellite Pass Tracker
           </h1>
           <p className="text-slate-400 text-sm">
