@@ -51,7 +51,7 @@
 | 1   | Live dropdown       | Type "Paris" (do not press any button)   | Dropdown of up to 5 matches appears automatically                                     |
 | 2   | Ambiguous matches   | Type "Springfield"                       | Multiple results, each labelled with region + country                                 |
 | 3   | Select a city       | Click a result                           | Dropdown closes; input fills with full label; green "Location set" panel shows coords |
-| 4   | Console coordinates | Click a result with DevTools open        | Console logs that city's exact latitude and longitude                                 |
+| 4   | Location saved      | Click a result                           | "Location saved" confirmation shows; city appears in "Your locations" and persists on reload |
 | 5   | No match            | Type "asdfqwerzxcv"                       | Red "City not found. Please try again."; no dropdown                                  |
 | 6   | Min length          | Type a single character                  | No request fired; no dropdown, no error                                               |
 | 7   | Debounce            | Type quickly, watch Network tab          | One request after you pause, not one per keystroke                                    |
@@ -105,7 +105,7 @@
 | #  | Scenario             | Steps                                   | Expected Result                                                  |
 | -- | -------------------- | --------------------------------------- | --------------------------------------------------------------- |
 | 1  | Timeline renders     | View a satellite with passes            | Each pass shows a timeline: rise (left) → peak → set (right)    |
-| 2  | Peak positioned by time | A pass that peaks early or late      | The peak marker/label sits left or right accordingly, not centred|
+| 2  | Peak tracks time     | Compare a pass's peak time to its rise/set labels | Peak marker sits proportionally between rise & set (near-centre for typical symmetric passes) |
 | 3  | Height = elevation   | Compare a high vs low pass              | Higher peak elevation → taller curve                            |
 | 4  | Local times on axis  | Read the rise/peak/set labels           | Times shown in your local timezone, in order                    |
 | 5  | No passes            | Satellite with no passes                | No timeline; "No upcoming passes…" shown instead                |

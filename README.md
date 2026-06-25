@@ -24,8 +24,9 @@ https://satellite-pass-tracker.vercel.app/
 
 - [Open-Meteo Geocoding API](https://open-meteo.com/en/docs/geocoding-api) — turns
   a city name into coordinates. **In use** (Core 3). No API key required.
-- [N2YO API](https://www.n2yo.com/api/) — satellite positions and predicted
-  passes. **Planned** for Cores 4–5 (not yet integrated).
+- [N2YO API](https://www.n2yo.com/api/) — predicted satellite passes (rise, peak,
+  set). **In use** (Core 5). A free API key is required; it is used server-side
+  only and never exposed to the browser.
 
 ## Running Locally
 
@@ -39,39 +40,39 @@ Create a `.env.local` file in the project root with your Supabase credentials:
 ```
 NEXT_PUBLIC_SUPABASE_URL=https://<your-project-ref>.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=<your-anon-key>
+N2YO_API_KEY=<your-n2yo-key>
 ```
 
 > `NEXT_PUBLIC_SUPABASE_URL` must be the project root only (no `/rest/v1` or other
-> path) — the Supabase client appends its own service paths.
+> path) — the Supabase client appends its own service paths. `N2YO_API_KEY` has no
+> `NEXT_PUBLIC_` prefix on purpose: it is a server-side secret.
+
+The database schema and Row Level Security policies live in
+[`supabase/schema.sql`](supabase/schema.sql) — run it in the Supabase SQL Editor.
 
 ## Project Status
 
-This project is being built in phases. To be transparent about what a reviewer
-will actually find working today:
+All five core tasks and both stretch tasks are complete:
 
-**Done**
+- **Core 1 — Setup & deploy:** Next.js + Supabase, deployed to Vercel, secrets
+  kept out of the repo.
+- **Core 2 — Auth & accounts:** email/password sign up, sign in, sign out;
+  protected routes (proxy + a per-page `getUser` guard).
+- **Core 3 — Location search:** type a city, geocode with Open-Meteo, handle
+  no-match and ambiguous results.
+- **Core 4 — Save satellites:** browse/search a catalogue, save/unsave to a
+  personal list, persisted per user with **Row Level Security**.
+- **Core 5 — Passes view:** upcoming passes (rise, peak, set, duration) per saved
+  satellite, in local time, with loading and empty states.
+- **Stretch A — Visualise a pass:** a per-pass **timeline** (elevation over time).
+- **Stretch B — Polish:** responsive layout, loading skeletons, sorted/dimmed
+  empty states.
 
-- **Core 1 — Setup & deploy:** Next.js app connected to Supabase, deployed to
-  Vercel with a live URL, secrets kept out of the repo.
-- **Core 2 — Auth & accounts:** email/password sign up, sign in, and sign out via
-  Supabase Auth; protected routes (middleware + a server-side `getUser` guard on
-  the dashboard).
-- **Core 3 — Location search:** type a city, geocode it with Open-Meteo, handle
-  the no-match and ambiguous-result cases.
-
-**Planned**
-
-- **Core 4 — Save satellites:** browse/search satellites and save them to a
-  personal list, persisted per user. Saved data will be isolated per user using
-  Supabase **Row Level Security** (not yet implemented — no user-data tables exist in the repo yet).
-- **Core 5 — Passes view:** upcoming passes (rise, peak, set, duration) per saved satellite, shown in local time, with loading and empty states.
+Manual test coverage is documented in [`TESTING.md`](TESTING.md).
 
 ## Assumptions
 
-Decisions made where the brief was silent, reflecting the work done so far:
+Decisions made where the brief was silent, and why.
 
-- **Email confirmation is disabled** in Supabase, so a new account is usable immediately. This keeps the test account easy to use without a real inbox.
-- **Sessions use secure server cookies** (`@supabase/ssr`) rather than browser local storage, so auth works correctly with server-rendered pages.
-- **Route protection is layered:** the middleware refreshes the session and redirects, and each protected page independently re-validates the user with `getUser()`. Neither is relied on alone.
-- **City search is debounced as-you-type** (350ms, minimum 2 characters) rather than button-triggered, and requests are race-safe — an in-flight lookup is aborted when the query changes so the latest input always wins.
-- **Open-Meteo omits the `results` key entirely on no match** (it does not return an empty array); the "city not found" handling depends on this. -**each pass is shown as a timeline** time on the x-axis (rise → set), peak at its actual time, elevation as the curve height, all in local time.
+<!-- Write your assumptions here. -->
+

@@ -16,8 +16,8 @@ A record of a manual test execution against a known build. The reusable test
 
 ## Summary
 
-- Passed: 63 / 65
-- Failed: 2/65
+- Passed: 65 / 65
+- Failed: 0/65
 - Known issues: see "Issues found" below
 
 ---
@@ -69,17 +69,17 @@ A record of a manual test execution against a known build. The reusable test
 
 ## 6. City Search — As-You-Type
 
-| #   | Scenario            | Result    | Notes                                                                                                                              |
-| --- | ------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | Live dropdown       | – Pass    |                                                                                                                                    |
-| 2   | Ambiguous matches   | – Partial | The dropdown showing multiple cities is being blocked by the satelite catalog. This is a UI problem not a logic issue              |
-| 3   | Select a city       | – Pass    |                                                                                                                                    |
-| 4   | Console coordinates | – Fail    | No console log is being shown when a city is selected - this is normal though it was part of core 3 testing which is redundant now |
-| 5   | No match            | – Pass    |                                                                                                                                    |
-| 6   | Min length          | – Pass    |                                                                                                                                    |
-| 7   | Debounce            | – Pass    |                                                                                                                                    |
-| 8   | Race safety         | – Pass    |                                                                                                                                    |
-| 9   | Edit after select   | – Pass    |                                                                                                                                    |
+| #   | Scenario          | Result | Notes |
+| --- | ----------------- | ------ | ----- |
+| 1   | Live dropdown     | – Pass |       |
+| 2   | Ambiguous matches | – Pass |       |
+| 3   | Select a city     | – Pass |       |
+| 4   | Location Saved    | – Pass |       |
+| 5   | No match          | – Pass |       |
+| 6   | Min length        | – Pass |       |
+| 7   | Debounce          | – Pass |       |
+| 8   | Race safety       | – Pass |       |
+| 9   | Edit after select | – Pass |       |
 
 ## 7. Save Satellites + RLS
 
@@ -149,4 +149,4 @@ A record of a manual test execution against a known build. The reusable test
 _Log any failure here: severity (blocker / major / minor), repro steps, and the
 fix commit once resolved._
 
-1. The list of cities was blocked by the satellite catalog.
+1. The list of cities was blocked by the satellite catalog. - Fixed
