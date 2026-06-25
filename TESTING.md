@@ -110,3 +110,11 @@
 | 4  | Local times on axis  | Read the rise/peak/set labels           | Times shown in your local timezone, in order                    |
 | 5  | No passes            | Satellite with no passes                | No timeline; "No upcoming passes…" shown instead                |
 | 6  | Responsive           | Narrow the window                       | Timeline scales; labels stay aligned                            |
+
+## Feature: Polish (Stretch B)
+
+| #  | Scenario           | Steps                                          | Expected Result                                                       |
+| -- | ------------------ | ---------------------------------------------- | -------------------------------------------------------------------- |
+| 1  | Sort by passes     | Save satellites, some passing some not         | Ones with upcoming passes appear first; "none soon" ones dimmed last  |
+| 2  | Loading skeleton   | Switch the active city, or hit ↻ Refresh       | Pulsing placeholders show while loading, then results appear          |
+| 3  | Responsive layout  | Resize to a narrow / mobile width              | Cards, city chips, and timelines reflow cleanly with no overflow      |
