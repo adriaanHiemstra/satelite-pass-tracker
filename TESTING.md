@@ -100,11 +100,13 @@
 | 7  | Replace location  | Save city A, then select city B          | Switches to B; no RLS error; one row per city         |
 | 8  | RLS isolation     | Second account                           | Sees none of the first account's cities               |
 
-## Feature: Pass Sky-Arc (Stretch A)
+## Feature: Pass Timeline (Stretch A)
 
-| #  | Scenario           | Steps                          | Expected Result                                   |
-| -- | ------------------ | ------------------------------ | ------------------------------------------------- |
-| 1  | Arc renders        | View a satellite with passes   | Each pass shows a sky-arc above its rise/set row  |
-| 2  | Height = elevation | Compare a high vs low pass     | Higher peak elevation → taller arc                |
-| 3  | No passes          | Satellite with no passes       | No arc; "No upcoming passes…" shown instead       |
-| 4  | Responsive         | Narrow the window              | Arc scales to width; line stays crisp             |
+| #  | Scenario             | Steps                                   | Expected Result                                                  |
+| -- | -------------------- | --------------------------------------- | --------------------------------------------------------------- |
+| 1  | Timeline renders     | View a satellite with passes            | Each pass shows a timeline: rise (left) → peak → set (right)    |
+| 2  | Peak positioned by time | A pass that peaks early or late      | The peak marker/label sits left or right accordingly, not centred|
+| 3  | Height = elevation   | Compare a high vs low pass              | Higher peak elevation → taller curve                            |
+| 4  | Local times on axis  | Read the rise/peak/set labels           | Times shown in your local timezone, in order                    |
+| 5  | No passes            | Satellite with no passes                | No timeline; "No upcoming passes…" shown instead                |
+| 6  | Responsive           | Narrow the window                       | Timeline scales; labels stay aligned                            |

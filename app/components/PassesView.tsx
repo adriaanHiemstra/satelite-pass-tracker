@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getAllPasses, type PassesResult } from "@/app/passes/actions";
-import PassArc from "./PassArc";
+import PassTimeline from "./PassTimeline";
 
 interface Props {
   hasLocation: boolean;
@@ -16,13 +16,6 @@ function fmtDateTime(utcSeconds: number): string {
     weekday: "short",
     month: "short",
     day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-}
-
-function fmtClock(utcSeconds: number): string {
-  return new Date(utcSeconds * 1000).toLocaleTimeString(undefined, {
     hour: "2-digit",
     minute: "2-digit",
   });
@@ -182,27 +175,18 @@ export default function PassesView({ hasLocation, hasSatellites }: Props) {
                           {fmtDateTime(p.startUTC)}
                         </span>
                         <span className="text-emerald-400 text-xs">
-                          {fmtDuration(p.duration)} · peak{" "}
-                          {Math.round(p.maxEl)}°
+                          {fmtDuration(p.duration)}
                         </span>
                       </div>
-                      {/* Sky arc: visual rise → peak → set for this pass */}
-                      <PassArc maxEl={p.maxEl} />
-                      {/* Rise → peak → set timeline in local time */}
-                      <div className="grid grid-cols-3 gap-2 text-xs text-slate-400">
-                        <span>
-                          <span className="text-slate-500">Rise</span>{" "}
-                          {fmtClock(p.startUTC)} · {p.startAzCompass}
-                        </span>
-                        <span className="text-center">
-                          <span className="text-slate-500">Peak</span>{" "}
-                          {fmtClock(p.maxUTC)}
-                        </span>
-                        <span className="text-right">
-                          <span className="text-slate-500">Set</span>{" "}
-                          {fmtClock(p.endUTC)} · {p.endAzCompass}
-                        </span>
-                      </div>
+                      {/* Pass timeline: elevation over time (rise → peak → set) */}
+                      <PassTimeline
+                        startUTC={p.startUTC}
+                        maxUTC={p.maxUTC}
+                        endUTC={p.endUTC}
+                        maxEl={p.maxEl}
+                        startAzCompass={p.startAzCompass}
+                        endAzCompass={p.endAzCompass}
+                      />
                     </li>
                   ))}
                 </ul>
